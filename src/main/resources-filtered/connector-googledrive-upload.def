@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition:ConnectorDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1">
+  <id>${connector-definition-id}</id>
+  <version>1.0.0</version>
+  <category icon="drive.png" id="drive"/>
+  <input mandatory="true" name="driveID" type="java.lang.String"/>
+  <input mandatory="false" name="folderName" type="java.lang.String"/>
+  <input mandatory="true" name="attachments" type="java.util.List"/>
+  <input mandatory="true" name="credentialsJSON" type="java.lang.String"/>
+  <input mandatory="true" name="createFolder" type="java.lang.Boolean"/>
+  <output name="createdFileList" type="java.util.Map"/>
+  <output name="createdFolderID" type="java.lang.String"/>
+  <page id="authentication">
+    <widget xsi:type="definition:Text" id="driveID" inputName="driveID"/>
+    <widget xsi:type="definition:Text" id="credentials" inputName="credentialsJSON"/>
+  </page>
+  <page id="uploadConfiguration">
+    <widget xsi:type="definition:Checkbox" id="createFolder" inputName="createFolder"/>
+    <widget xsi:type="definition:ScriptEditor" id="folderName" inputName="folderName"/>
+    <widget xsi:type="definition:List" id="attachments" inputName="attachments" showDocuments="true"/>
+  </page>
+</definition:ConnectorDefinition>

@@ -1,0 +1,71 @@
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:icons: font
+:source-highlighter: highlightjs
+:idprefix:
+:idseparator: -
+:sectlinks:
+:sectanchors:
+:linkcss: false
+
+:short-bonita-version: 7.13
+:doc-url: https://documentation.bonitasoft.com/bonita/7.13
+:java-version: 11
+= connector-googledrive-upload
+
+The project **connector-googledrive-upload** is a Bonita Connector for **Bonita {short-bonita-version}**  **Community** version written in `java` language.
+
+This connector will include a library to use with https://developers.google.com/drive/api/v3/about-sdk[Google's Drive API 3] in order to connect to a drive account and create, populate, find, and delete folders and files in a shared drive.
+
+
+== Features
+
+
+In the implementation _upload_, this connector will allow to connect to a drive, create a folder (optional) and upload one or multiple https://documentation.bonitasoft.com/bonita/2021.2/data/documents[documents in a Bonita process].
+
+== Getting started
+
+
+For more details on Bonita Connector please refer to {doc-url}/connector-archetype[documentation]
+
+== Developing
+
+Prerequisite:
+
+- Java ( **jdk {java-version}** or higher)
+- Maven (optional if you choosed to use https://github.com/takari/maven-wrapper[maven wrapper script] as archetype option)
+- A Git client (optional but highly recommended)
+
+=== Building
+
+[source,bash]
+----
+git clone https://your.github.com/connector-googledrive-upload.git
+cd connector-googledrive-upload/
+./mwnw package
+----
+
+The build should produce a jar archive under the `target/` folder named `connector-googledrive-upload-1.0-SNAPSHOT.jar`
+
+For more details about Apache Maven, please refer to the https://maven.apache.org/guides/getting-started/[documentation]
+
+=== Deploying / Publishing
+
+{doc-url}/software-extensibility/software-extensibility[Install the connector in your Bonita project using the Studio, window = "_blank"].
+
+== Contributing
+
+Any contribution to this project is welcome, either in adding new implementations of the connector or improving existing ones.
+
+Pull requests are encouraged.
+
+== Links
+
+. Project homepage: https://github.com/bonitasoft-presales/connector-googledrive-upload
+. Repository: https://github.com/bonitasoft-presales/connector-googledrive-upload
+. Issue tracker: https://github.com/bonitasoft-presales/connector-googledrive-upload/issues
+.. In case of sensitive bugs like security vulnerabilities, please contact
+    presales@bonitasoft.com directly instead of using issue tracker. We value your effort
+    to improve the security and privacy of this project!
