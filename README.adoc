@@ -63,9 +63,9 @@ Pull requests are encouraged.
 
 == Links
 
-. Project homepage: https://github.com/bonitasoft-presales/connector-googledrive-upload
-. Repository: https://github.com/bonitasoft-presales/connector-googledrive-upload
-. Issue tracker: https://github.com/bonitasoft-presales/connector-googledrive-upload/issues
+. Project homepage: https://github.com/bonitasoft-presales/connector-gdrive
+. Repository: https://github.com/bonitasoft-presales/connector-gdrive
+. Issue tracker: https://github.com/bonitasoft-presales/connector-gdrive/issues
 .. In case of sensitive bugs like security vulnerabilities, please contact
     presales@bonitasoft.com directly instead of using issue tracker. We value your effort
     to improve the security and privacy of this project!
