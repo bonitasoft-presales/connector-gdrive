@@ -2,3 +2,6 @@
 *.iml
 target
 myDocument*.txt
+.classpath
+.project
+.settings

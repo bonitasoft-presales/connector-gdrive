@@ -29,10 +29,9 @@ class GDriveUtilsTest {
   Logger logger = LoggerFactory.getLogger(this.getClass());
 
   @Test
-  public void shouldListDrivesUsingServiceAccount() throws IOException, GeneralSecurityException {
+  void shouldListDrivesUsingServiceAccount() throws IOException, GeneralSecurityException {
     GDriveUtils driveUtils = new GDriveUtils();
-    java.io.File credentialFile =
-        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    var credentialFile = loadCredentials();
     Drive driveService =
         driveUtils.getDriveServiceViaServiceAccount(credentialFile, getAllScopes());
     List<com.google.api.services.drive.model.Drive> drives = driveUtils.listDrives(driveService);
@@ -42,10 +41,9 @@ class GDriveUtilsTest {
   }
 
   @Test
-  public void shouldCreateFileUnderSharedFolderUsingServiceAccount() throws Exception {
+  void shouldCreateFileUnderSharedFolderUsingServiceAccount() throws Exception {
     GDriveUtils driveUtils = new GDriveUtils();
-    java.io.File credentialFile =
-        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    java.io.File credentialFile = loadCredentials();
     Drive driveService =
         driveUtils.getDriveServiceViaServiceAccount(credentialFile, getAllScopes());
 
@@ -83,10 +81,9 @@ class GDriveUtilsTest {
   }
 
   @Test
-  public void shouldCreateFileUnderRootDriveFolder() throws Exception {
+  void shouldCreateFileUnderRootDriveFolder() throws Exception {
     GDriveUtils driveUtils = new GDriveUtils();
-    java.io.File credentialFile =
-        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    java.io.File credentialFile = loadCredentials();
     Drive driveService =
         driveUtils.getDriveServiceViaServiceAccount(credentialFile, getAllScopes());
 
@@ -127,10 +124,9 @@ class GDriveUtilsTest {
   }
 
   @Test
-  public void shouldCreateFolderUsingServiceAccount() throws Exception {
+  void shouldCreateFolderUsingServiceAccount() throws Exception {
     GDriveUtils driveUtils = new GDriveUtils();
-    java.io.File credentialFile =
-        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    java.io.File credentialFile = loadCredentials();
     Drive driveService =
         driveUtils.getDriveServiceViaServiceAccount(credentialFile, getAllScopes());
     String newFolderName = "test_folder_" + UUID.randomUUID();
@@ -196,5 +192,16 @@ class GDriveUtilsTest {
       return all.get(0).getName();
     }
     return null;
+  }
+
+  private java.io.File loadCredentials() throws IOException {
+    var credentialFile =
+        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    if (!credentialFile.exists()) {
+      throw new IllegalStateException(
+          String.format(
+              "Missing %s file for integration tests.", credentialFile.getAbsolutePath()));
+    }
+    return credentialFile;
   }
 }
