@@ -25,7 +25,7 @@
         <connector-main-class>com.bonitasoft.presales.connector.GoogleDriveUpload</connector-main-class>
 
         <!-- Bonita -->
-        <bonita-runtime.version>7.13.0</bonita-runtime.version>
+        <bonita-runtime.version>7.15.0</bonita-runtime.version>
 
         <!-- Tests -->
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
