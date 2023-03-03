@@ -91,8 +91,7 @@ class GoogleDriveUploadTest {
 
   @Test
   void test_connector() throws ConnectorException, ConnectorValidationException, IOException {
-    java.io.File credentialFile =
-        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    java.io.File credentialFile = loadCredentials();
     String credentials = Files.readString(credentialFile.toPath());
     List<String> attachments = new ArrayList<>();
     attachments.add(DOCUMENT_NAME);
@@ -124,5 +123,16 @@ class GoogleDriveUploadTest {
         .isNotNull();
 
     connector.cleanup(folderId);
+  }
+
+  private java.io.File loadCredentials() throws IOException {
+    var credentialFile =
+        new java.io.File(System.getProperty("user.home") + SERVICE_ACCOUNT_CREDENTIALS);
+    if (!credentialFile.exists()) {
+      throw new IllegalStateException(
+          String.format(
+              "Missing %s file for integration tests.", credentialFile.getAbsolutePath()));
+    }
+    return credentialFile;
   }
 }
