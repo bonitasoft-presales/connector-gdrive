@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version of the release. Used as tag name.'
+        required: true
+        default: 'x.y.z'
+      dryRun:
+        description: 'Run a dry-run release'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  build:
+    name: Release pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 11
+          cache: 'maven'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+      
+      - name: Build Release 
+        run: ./mvnw --batch-mode release:prepare -DreleaseVersion=${{ github.event.inputs.version }} -DdryRun=${{ github.event.inputs.dryRun }}
+            
+      - name: Publish
+        run: mvn --batch-mode release:perform -DdryRun=${{ github.event.inputs.dryRun }}
+        
+      - uses: actions/create-release@latest
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
+
+    - uses: actions/upload-release-asset@v1
+      id: upload-release-asset 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: target/connector-gdrive-${{ github.event.inputs.version }}.jar
+        asset_name: connector-gdrive-${{ github.event.inputs.version }}.jar
+        asset_content_type: application/zip

@@ -7,10 +7,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <!-- Github-->
-        <github.owner>bonitasoft-presales</github.owner>
-        <github.repo>${project.artifactId}</github.repo>
-
         <!-- Maven -->
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,7 +34,8 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
+        <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
 
     </properties>
     <dependencyManagement>
@@ -50,55 +47,40 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.13</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
-            <version>1.32.2</version>
-            <scope>compile</scope>
+            <version>2.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-drive</artifactId>
-            <version>v3-rev20211107-1.32.1</version>
-            <scope>compile</scope>
+            <version>v3-rev20220815-2.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>
             <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.32.1</version>
-            <scope>compile</scope>
+            <version>1.34.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
-            <version>1.2.2</version>
+            <version>1.16.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <version>4.2.0</version>
-            <scope>test</scope>
-        </dependency>
-
+        
 
         <!-- Bonita -->
         <dependency>
+		    <groupId>org.bonitasoft.engine</groupId>
             <artifactId>bonita-common</artifactId>
-            <groupId>org.bonitasoft.engine</groupId>
             <scope>provided</scope>
         </dependency>
 
@@ -119,6 +101,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -183,6 +171,15 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <configuration>
+						<tagNameFormat>@${project.version}</tagNameFormat>
+						<arguments>-DskipTests</arguments>
+					</configuration>               
+			 	 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -209,7 +206,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>6.5.1</version>
+                <version>8.1.2</version>
                 <configuration>
                     <failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
                 </configuration>
@@ -243,21 +240,29 @@
         </plugins>
     </build>
     <scm>
-        <url>https://github.com/${github.owner}/${github.repo}</url>
-        <developerConnection>scm:git:${project.scm.url}.git</developerConnection>
-        <connection>scm:git:${project.scm.url}.git</connection>
+        <url>https://github.com/bonitasoft-presales/connector-gdrive</url>
+        <developerConnection>scm:git:https://github.com/bonitasoft-presales/connector-gdrive</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
             <id>github</id>
             <name>Github Package</name>
-            <url>https://maven.pkg.github.com/${github.owner}/${github.repo}</url>
+            <url>https://maven.pkg.github.com/bonitasoft-presales/connector-gdrive</url>
         </snapshotRepository>
         <repository>
             <id>github</id>
             <name>Github Package</name>
-            <url>https://maven.pkg.github.com/${github.owner}/${github.repo}</url>
+            <url>https://maven.pkg.github.com/bonitasoft-presales/connector-gdrive</url>
         </repository>
     </distributionManagement>
+    
+    <profiles>
+		<profile>
+			<id>release</id>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
+		</profile>
+	</profiles>
 </project>

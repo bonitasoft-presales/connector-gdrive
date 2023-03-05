@@ -5,3 +5,9 @@ myDocument*.txt
 .classpath
 .project
 .settings
+
+# maven-release-plugin
+release.properties
+pom.xml.tag
+pom.xml.next
+pom.xml.releaseBackup
