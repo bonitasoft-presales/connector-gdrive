@@ -11,12 +11,13 @@
 :linkcss: false
 
 :short-bonita-version: 7.13
+:platform-bonita-version: 2021.2
 :doc-url: https://documentation.bonitasoft.com/bonita/7.13
 :java-version: 11
 
 = Google Drive Upload connector
 
-The project **connector-gdrive** is a Bonita Connector for **Bonita {short-bonita-version}**  **Community** version written in `java` language.
+The project **connector-gdrive** is a Bonita Connector for **Bonita {platform-bonita-version}** **Community** version and above written in `java` language.
 
 This connector will include a library to use with https://developers.google.com/drive/api/v3/about-sdk[Google's Drive API 3] in order to connect to a drive account and upload files in a shared drive.
 
