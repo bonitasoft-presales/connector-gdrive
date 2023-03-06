@@ -13,20 +13,19 @@
 :short-bonita-version: 7.13
 :doc-url: https://documentation.bonitasoft.com/bonita/7.13
 :java-version: 11
-= connector-googledrive-upload
 
-The project **connector-googledrive-upload** is a Bonita Connector for **Bonita {short-bonita-version}**  **Community** version written in `java` language.
+= Google Drive Upload connector
 
-This connector will include a library to use with https://developers.google.com/drive/api/v3/about-sdk[Google's Drive API 3] in order to connect to a drive account and create, populate, find, and delete folders and files in a shared drive.
+The project **connector-gdrive** is a Bonita Connector for **Bonita {short-bonita-version}**  **Community** version written in `java` language.
+
+This connector will include a library to use with https://developers.google.com/drive/api/v3/about-sdk[Google's Drive API 3] in order to connect to a drive account and upload files in a shared drive.
 
 
 == Features
 
-
 In the implementation _upload_, this connector will allow to connect to a drive, create a folder (optional) and upload one or multiple https://documentation.bonitasoft.com/bonita/2021.2/data/documents[documents in a Bonita process].
 
 == Getting started
-
 
 For more details on Bonita Connector please refer to {doc-url}/connector-archetype[documentation]
 
@@ -42,12 +41,12 @@ Prerequisite:
 
 [source,bash]
 ----
-git clone https://your.github.com/connector-googledrive-upload.git
-cd connector-googledrive-upload/
-./mwnw package
+git clone https://github.com/bonitasoft-presales/connector-gdrive.git
+cd connector-gdrive/
+./mwnw package -DskipTests
 ----
 
-The build should produce a jar archive under the `target/` folder named `connector-googledrive-upload-1.0-SNAPSHOT.jar`
+The build should produce a jar archive under the `target/` folder named `connector-gdrive-${version}.jar`
 
 For more details about Apache Maven, please refer to the https://maven.apache.org/guides/getting-started/[documentation]
 
