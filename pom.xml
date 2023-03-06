@@ -257,12 +257,4 @@
         </repository>
     </distributionManagement>
     
-    <profiles>
-		<profile>
-			<id>release</id>
-			<properties>
-				<skipTests>true</skipTests>
-			</properties>
-		</profile>
-	</profiles>
 </project>
