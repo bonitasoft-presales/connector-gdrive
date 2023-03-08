@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bonitasoft.presales.connector</groupId>
     <artifactId>connector-gdrive</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>com.bonitasoft.presales.connector</name>
     <packaging>jar</packaging>
 
@@ -242,7 +242,7 @@
     <scm>
         <url>https://github.com/bonitasoft-presales/connector-gdrive</url>
         <developerConnection>scm:git:https://github.com/bonitasoft-presales/connector-gdrive</developerConnection>
-        <tag>HEAD</tag>
+        <tag>@1.1-SNAPSHOT</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
