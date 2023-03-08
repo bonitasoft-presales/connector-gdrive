@@ -24,7 +24,7 @@
         <bonita-runtime.version>7.13.0</bonita-runtime.version>
 
         <!-- Tests -->
-        <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
+        <junit-jupiter-engine.version>5.9.2</junit-jupiter-engine.version>
         <assertj-core.version>3.24.2</assertj-core.version>
         <mockito-core.version>3.11.2</mockito-core.version>
         <logback-classic.version>1.2.3</logback-classic.version>
