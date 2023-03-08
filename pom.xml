@@ -75,11 +75,11 @@
             <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        
 
         <!-- Bonita -->
         <dependency>
-            <groupId>org.bonitasoft.engine</groupId>
+		    <groupId>org.bonitasoft.engine</groupId>
             <artifactId>bonita-common</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -176,10 +176,10 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
-                        <tagNameFormat>@${project.version}</tagNameFormat>
-                        <arguments>-DskipTests</arguments>
-                    </configuration>
-                </plugin>
+						<tagNameFormat>@${project.version}</tagNameFormat>
+						<arguments>-DskipTests</arguments>
+					</configuration>               
+			 	 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -256,5 +256,5 @@
             <url>https://maven.pkg.github.com/bonitasoft-presales/connector-gdrive</url>
         </repository>
     </distributionManagement>
-
+    
 </project>

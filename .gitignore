@@ -2,4 +2,13 @@
 *.iml
 target
 myDocument*.txt
-/src/test/java/com/bonitasoft/presales/gdrive/presales-gdrive-facbfbc5a678.json
+.classpath
+.project
+.settings
+
+# maven-release-plugin
+release.properties
+pom.xml.tag
+pom.xml.next
+pom.xml.releaseBackup
+
