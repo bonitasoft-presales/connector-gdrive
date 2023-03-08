@@ -106,8 +106,8 @@ jobs:
         run: |
           VERSION=$( ./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )
           FINAL_NAME=$( ./mvnw help:evaluate -Dexpression=project.build.finalName -q -DforceStdout )
-          echo "::set-output name=version::$VERSION"
-          echo "::set-output name=final-name::$FINAL_NAME"
+          run: echo "{version}={$VERSION}" >> $GITHUB_OUTPUT
+          run: echo "{final_name}={FINAL_NAME}" >> $GITHUB_OUTPUT
 
       - name: Display version
         id: display-version
