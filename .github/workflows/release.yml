@@ -17,6 +17,7 @@ jobs:
   build:
     name: Release pipeline
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -33,12 +34,24 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-      
-      - name: Build Release 
-        run: ./mvnw --batch-mode release:prepare -DreleaseVersion=${{ github.event.inputs.version }} -DdryRun=${{ github.event.inputs.dryRun }}
-            
-      - name: Publish
-        run: mvn --batch-mode release:perform -DdryRun=${{ github.event.inputs.dryRun }}
+          
+      - name: Create json file
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "presales-gdrive-service.json"
+          json: ${{ secrets.GD_SERVICE_ACCOUNT }}
+
+      - name: Move files
+        run: |
+          mkdir -p $HOME/gdrive
+          cp presales-gdrive-service.json $HOME/gdrive
+          ls -ltr $HOME/gdrive
+                  
+      - name: Build and Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn --batch-mode release:prepare release:perform -DreleaseVersion=${{ github.event.inputs.version }}  -DdryRun=${{ github.event.inputs.dryRun }}
         
       - uses: actions/create-release@latest
         id: create_release

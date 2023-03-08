@@ -3,7 +3,7 @@
     <groupId>com.bonitasoft.presales.connector</groupId>
     <artifactId>connector-gdrive</artifactId>
     <version>1.1-SNAPSHOT</version>
-    <name>com.bonitasoft.presales.connector</name>
+    <name>Google Drive Upload Connector</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -12,6 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy.MM.dd-hh.mm</maven.build.timestamp.format>
+        <project.scm.id>github</project.scm.id> 
 
         <!-- Connector -->
         <connector-definition-id>${project.artifactId}</connector-definition-id>
@@ -24,9 +25,9 @@
         <bonita-runtime.version>7.13.0</bonita-runtime.version>
 
         <!-- Tests -->
-        <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
-        <assertj-core.version>3.20.2</assertj-core.version>
-        <mockito-core.version>3.11.2</mockito-core.version>
+        <junit-jupiter-engine.version>5.9.2</junit-jupiter-engine.version>
+        <assertj-core.version>3.24.2</assertj-core.version>
+        <mockito-core.version>5.1.1</mockito-core.version>
         <logback-classic.version>1.2.3</logback-classic.version>
 
         <!-- Maven plugins -->
@@ -34,9 +35,10 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
         <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
-
+        
+        <skipDependencyAnalysis>true</skipDependencyAnalysis>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -58,7 +60,7 @@
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-drive</artifactId>
-            <version>v3-rev20220815-2.0.0</version>
+            <version>v3-rev20230212-2.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>
@@ -176,8 +178,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
-						<tagNameFormat>@${project.version}</tagNameFormat>
-						<arguments>-DskipTests</arguments>
+						<tagNameFormat>@{project.version}</tagNameFormat>
 					</configuration>               
 			 	 </plugin>
             </plugins>
@@ -208,6 +209,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>8.1.2</version>
                 <configuration>
+					<skip>${skipDependencyAnalysis}</skip>
                     <failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
                 </configuration>
                 <executions>
@@ -245,11 +247,6 @@
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
-        <snapshotRepository>
-            <id>github</id>
-            <name>Github Package</name>
-            <url>https://maven.pkg.github.com/bonitasoft-presales/connector-gdrive</url>
-        </snapshotRepository>
         <repository>
             <id>github</id>
             <name>Github Package</name>
