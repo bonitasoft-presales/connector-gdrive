@@ -2,3 +2,4 @@
 *.iml
 target
 myDocument*.txt
+/src/test/java/com/bonitasoft/presales/gdrive/presales-gdrive-facbfbc5a678.json

@@ -1,0 +1,67 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Java and Maven - setup settings.xml
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'temurin'
+          server-id: github
+          cache: 'maven'
+
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Create json file
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "presales-gdrive-service.json"
+          json: ${{ secrets.GD_SERVICE_ACCOUNT }}
+
+      - name: Move files
+        run: |
+          mkdir -p $HOME/gdrive
+          cp presales-gdrive-service.json $HOME/gdrive
+          ls -ltr $HOME/gdrive
+
+      - name: Build and Test
+        run: |
+          ./mvnw clean verify
+
+      - name: Get version
+        id: get-version
+        run: |
+          VERSION=$( ./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout )
+          FINAL_NAME=$( ./mvnw help:evaluate -Dexpression=project.build.finalName -q -DforceStdout )
+          echo "::set-output name=version::$VERSION"
+          echo "::set-output name=final-name::$FINAL_NAME"
+
+      - name: Display version
+        id: display-version
+        run: |
+          echo "version: ${{ steps.get-version.outputs.version }}"
+          echo "final_name: ${{ steps.get-version.outputs.final-name }}"
+
+      - name: Publish to Github Package
+        run: ./mvnw --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
